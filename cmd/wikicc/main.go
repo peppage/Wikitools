@@ -34,6 +34,11 @@ func main() {
 	titles := client.GetPagesInCategory(*cat)
 	pageContents := strings.ToLower(client.GetPage(*page))
 
+	// HTML Cleanup
+	pageContents = strings.Replace(pageContents, "&amp;", "&", -1)
+	pageContents = strings.Replace(pageContents, "<i>", "", -1)
+	pageContents = strings.Replace(pageContents, "</i>", "", -1)
+
 	notFoundTitles := []string{}
 	for _, t := range titles {
 		if !strings.Contains(pageContents, strings.ToLower(t)) {
